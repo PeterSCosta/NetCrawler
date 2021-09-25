@@ -1,5 +1,6 @@
 ﻿using NetCrawler.Models;
 using NetCrawler.Services;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -29,10 +30,18 @@ namespace NetCrawler.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _crawlerService.Execute(model);
+                try
+                {
+                    await _crawlerService.Execute(model);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                }
             }
 
             return View("Index", model);
         }
+
     }
 }

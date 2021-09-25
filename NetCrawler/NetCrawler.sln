@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCrawler", "NetCrawler\NetCrawler.csproj", "{CB3CBFF4-D24F-4AB1-B6B6-59F60C8714BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCrawler.Tests", "NetCrawler.Tests\NetCrawler.Tests.csproj", "{6DB1C552-0C66-4B63-A03B-10CB3330EE8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCrawlerTests", "NetCrawlerTests1\NetCrawlerTests.csproj", "{4F9DC170-24EB-40CF-B3F8-5C6D14241528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{CB3CBFF4-D24F-4AB1-B6B6-59F60C8714BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB3CBFF4-D24F-4AB1-B6B6-59F60C8714BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB3CBFF4-D24F-4AB1-B6B6-59F60C8714BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DB1C552-0C66-4B63-A03B-10CB3330EE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DB1C552-0C66-4B63-A03B-10CB3330EE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DB1C552-0C66-4B63-A03B-10CB3330EE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DB1C552-0C66-4B63-A03B-10CB3330EE8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9DC170-24EB-40CF-B3F8-5C6D14241528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9DC170-24EB-40CF-B3F8-5C6D14241528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9DC170-24EB-40CF-B3F8-5C6D14241528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9DC170-24EB-40CF-B3F8-5C6D14241528}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using NetCrawler.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -21,8 +22,12 @@ namespace NetCrawler.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<CrawlerViewModel> Execute(CrawlerViewModel model)
+        public async Task<CrawlerViewModel> Execute(
+            CrawlerViewModel model
+        )
         {
+            Validate(model);
+
             _html = await _httpClient.GetStringAsync(model.Url);
             _htmlDocument = new HtmlDocument();
             _htmlDocument.LoadHtml(_html);
@@ -31,6 +36,16 @@ namespace NetCrawler.Services
             model.CommomWords = GetMostCommomWords();
 
             return model;
+        }
+
+        private void Validate(
+            CrawlerViewModel model
+        )
+        {
+            if (string.IsNullOrWhiteSpace(model.Url))
+            {
+                throw new Exception("Website's url is required");
+            }
         }
 
         private List<ImageModel> GetImages()
