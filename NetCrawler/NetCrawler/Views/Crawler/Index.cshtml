@@ -1,0 +1,83 @@
+﻿@model NetCrawler.Models.CrawlerViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm("SeachUrl", "Crawler", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <br />
+        <div class="row">
+            <div class="col-lg-3" style="float:none;margin:auto;">
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", @name = "Url", @placeholder = "Website's url...", @type = "text" } })
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3" style="float:none;margin:auto;">
+                @Html.ValidationMessageFor(model => model.Url)
+            </div>
+        </div>
+        <br />
+        @if (Model != null)
+        {
+            if (Model.CommomWords != null)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Top @Model.CommomWords.Count() commom words</div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center" scope="col">#</th>
+                                                <th style="text-align:center" scope="col">Word</th>
+                                                <th style="text-align:center" scope="col">Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var word in Model.CommomWords)
+                                            {
+                                                <tr>
+                                                    <td style="text-align:center">@word.Position</td>
+                                                    <td style="text-align:left">@word.Value</td>
+                                                    <td style="text-align:center">@word.Quantity</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            if (Model.Images != null)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Images found</div>
+                            <div class="panel-body">
+                                <div class="flex-container">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <img src="@image.Url" style="width:24%; height:auto; margin-bottom:5px" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
