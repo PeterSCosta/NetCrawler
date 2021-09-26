@@ -14,8 +14,15 @@ namespace NetCrawler.WindsorBinder
                 .BasedOn<IController>()
                 .LifestyleTransient());
 
-            container.Register(Component.For<ICrawlerService>().ImplementedBy<CrawlerService>());
+            RegisterServices(container);
+        }
+
+        private void RegisterServices(
+            IWindsorContainer container
+        )
+        {
+            container.Register(Component.For<IHttpService>().ImplementedBy<HttpService>());
+            container.Register(Component.For<ICrawlerService>().ImplementedBy<CrawlerService>());               
         }
     }
-
 }

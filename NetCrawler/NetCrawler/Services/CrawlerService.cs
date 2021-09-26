@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -13,13 +12,13 @@ namespace NetCrawler.Services
     public class CrawlerService : ICrawlerService
     {
         private readonly int NUMBER_COMMOM_WORDS_DEFAULT = 10;
-        private string _html;
-        private HttpClient _httpClient;
-        private HtmlDocument _htmlDocument;
+        private readonly IHttpService _httpService;
 
-        public CrawlerService()
+        public CrawlerService(
+            IHttpService httpService    
+        )
         {
-            _httpClient = new HttpClient();
+            _httpService = httpService;
         }
 
         public async Task<CrawlerViewModel> Execute(
@@ -28,12 +27,10 @@ namespace NetCrawler.Services
         {
             Validate(model);
 
-            _html = await _httpClient.GetStringAsync(model.Url);
-            _htmlDocument = new HtmlDocument();
-            _htmlDocument.LoadHtml(_html);
+            var htmlDocument = await _httpService.Execute(model.Url);
 
-            model.Images = GetImages();
-            model.CommomWords = GetMostCommomWords();
+            model.Images = GetImages(htmlDocument);
+            model.CommomWords = GetMostCommomWords(htmlDocument);
 
             return model;
         }
@@ -48,10 +45,12 @@ namespace NetCrawler.Services
             }
         }
 
-        private List<ImageModel> GetImages()
+        private List<ImageModel> GetImages(
+            HtmlDocument htmlDocument    
+        )
         {
             var images =
-                _htmlDocument
+                htmlDocument
                 .DocumentNode
                 .Descendants("img")
                 .Where(i => i.Attributes.Contains("src"))
@@ -64,12 +63,14 @@ namespace NetCrawler.Services
             return images;
         }
 
-        private List<CommomWordModel> GetMostCommomWords()
+        private List<CommomWordModel> GetMostCommomWords(
+            HtmlDocument htmlDocument
+        )
         {
             TextInfo info = CultureInfo.CurrentCulture.TextInfo;
 
             var commomWords =
-                _htmlDocument
+                htmlDocument
                 .DocumentNode
                 .DescendantsAndSelf()
                 .Where(n => !n.HasChildNodes)
